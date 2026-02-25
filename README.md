@@ -1,6 +1,6 @@
 # Apartment Maintenance Request Tracker
 
-### “Keep the Building Running.”
+### Keep the Building Running.
 
 You are building a simple console application that helps an apartment complex track maintenance requests.
 
