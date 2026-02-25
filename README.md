@@ -1,4 +1,4 @@
-# 🏢 Apartment Maintenance Request Tracker
+# Apartment Maintenance Request Tracker
 
 ### “Keep the Building Running.”
 
@@ -25,7 +25,7 @@ Create a Java console application that demonstrates your understanding of:
 * Conditional statements
 
 
-# 📁 Required Files
+# Required Files
 
 * `MaintenanceRequest.java`
 * `MaintenanceOffice.java` *(starts at Level 3)*
@@ -131,7 +131,7 @@ Avoid:
 
 ---
 
-# 📌 Submission
+# Submission
 
 Submit:
 
@@ -141,7 +141,7 @@ Submit:
 
 ---
 
-# 💡 Creative Extension (Optional)
+# Creative Extension (Optional)
 
 Choose ONE:
 
