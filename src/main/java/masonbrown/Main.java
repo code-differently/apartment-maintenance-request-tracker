@@ -86,5 +86,6 @@ public class Main {
         }
 
         office.report();
-        }
     }
+}
+
