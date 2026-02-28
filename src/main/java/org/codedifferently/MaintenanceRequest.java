@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MaintenanceRequest {
+    private static int count = 1;
     private String tenantName;
     private int apartmentNumber;
     private String issueType;
     private int severity;
     private Status status;
     private String assignedTechnician;
+    private int requestId;
 
     public MaintenanceRequest(String tenantName, int apartmentNumber, String issueType, int severity) {
         this.tenantName = tenantName;
@@ -17,6 +19,7 @@ public class MaintenanceRequest {
         this.issueType = issueType;
         this.severity = severity;
         this.status = Status.NEW;
+        this.requestId = count;
     }
 
     public String getTenantName() {
@@ -59,6 +62,22 @@ public class MaintenanceRequest {
         this.status = status;
     }
 
+    public int getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(int requestId) {
+        this.requestId = requestId;
+    }
+
+    public static int getCount() {
+        return count;
+    }
+
+    public static void setCount(int count) {
+        MaintenanceRequest.count = count;
+    }
+
     public static MaintenanceRequest createRequest(Scanner sc) {
         String name = validateName(sc);
 
@@ -81,6 +100,7 @@ public class MaintenanceRequest {
             System.out.println("WARNING! THIS REQUEST REQUIRES URGENT ATTENTION");
         }
 
+        setCount(count + 1);
         return ticket;
     }
 

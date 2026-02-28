@@ -23,12 +23,11 @@ public class MaintenanceOffice {
         requests.add(request);
     }
 
-    public void updateStatus(MaintenanceRequest request, Status newStatus) {
-        if (newStatus == Status.NEW ||
-                newStatus == Status.IN_PROGRESS ||
-                newStatus == Status.DONE) {
-
-            request.setStatus(newStatus);
+    public void getProgressUpdate() {
+        for (MaintenanceRequest request : requests) {
+            if (request.getStatus() == Status.IN_PROGRESS) {
+                request.setStatus(Status.DONE);
+            }
         }
     }
 
@@ -49,10 +48,10 @@ public class MaintenanceOffice {
         } else {
             System.out.println("\nMultiple requests found: " + requestsFound + "\n");
             while(true) {
-                System.out.print("Enter tenant name: ");
-                String name = sc.nextLine();
+                System.out.print("Enter request id: ");
+                int requestId = sc.nextInt();
                 for (MaintenanceRequest request : requests) {
-                    if (request.getTenantName().equalsIgnoreCase(name)) {
+                    if (request.getRequestId() == requestId) {
                         return request;
                     }
                 }
@@ -68,6 +67,14 @@ public class MaintenanceOffice {
         } else {
             System.out.println("Cannot close request unless it is DONE.");
         }
+    }
+
+    public void passTime() {
+
+    }
+
+    public void viewRequests() {
+        System.out.println(requests);
     }
 
     public ArrayList<MaintenanceRequest> getRequests() {

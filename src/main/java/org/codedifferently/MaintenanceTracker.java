@@ -1,6 +1,5 @@
 package org.codedifferently;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MaintenanceTracker {
@@ -8,19 +7,19 @@ public class MaintenanceTracker {
 
     public static void displayMenu(Scanner sc) {
         String input;
+        int aptNum;
         do {
             // Displays the main menu options to the user.
             System.out.println("\n=== Maintenance Management Menu ===");
             System.out.println("Type \"Enter\" to make a new request.");
             System.out.println("Type \"Assign\" to assign a technician.");
-            System.out.println("Type \"Update\" to get a status update on all requests.");
+            System.out.println("Type \"Status\" to get a status update on all requests.");
             System.out.println("Type \"Report\" to print a daily report.");
             System.out.println("Type \"Done\" to exit out.");
             System.out.print("Selection: ");
 
             // Validates numeric input before processing.
             input = sc.nextLine();
-
             switch (input) {
                 case "Enter":
                     MaintenanceRequest request = MaintenanceRequest.createRequest(sc);
@@ -29,12 +28,26 @@ public class MaintenanceTracker {
                         office.assignTechnician(request);
                     }
                     break;
+                case "View":
+                    office.viewRequests();
+                    break;
                 case "Assign":
                     System.out.print("Enter an apt number: ");
-                    int aptNum = sc.nextInt();
+                    aptNum = sc.nextInt();
                     sc.nextLine();
                     MaintenanceRequest toAssign = office.searchRequest(aptNum, sc);
                     office.assignTechnician(toAssign);
+                case "Status":
+                    office.getProgressUpdate();
+                    break;
+                case "Close":
+                    System.out.print("Enter an apt number: ");
+                    aptNum = sc.nextInt();
+                    MaintenanceRequest toClose = office.searchRequest(aptNum, sc);
+                    office.closeRequest(toClose);
+                    break;
+                case "Report":
+                    break;
                 case "Done":
                     break;
                 default:
