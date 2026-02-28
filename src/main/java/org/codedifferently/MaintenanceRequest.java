@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MaintenanceRequest {
-    private static int count = 1;
+    private static int count = 0;
+
     private String tenantName;
     private int apartmentNumber;
     private String issueType;
-    private int severity;
+    private Severity severity;
     private Status status;
     private String assignedTechnician;
     private int requestId;
@@ -17,9 +18,15 @@ public class MaintenanceRequest {
         this.tenantName = tenantName;
         this.apartmentNumber = apartmentNumber;
         this.issueType = issueType;
-        this.severity = severity;
+        if (severity == 1 || severity == 2) {
+            this.severity = Severity.LOW;
+        } else if (severity == 3) {
+            this.severity = Severity.MEDIUM;
+        } else {
+            this.severity = Severity.HIGH;
+        }
         this.status = Status.NEW;
-        this.requestId = count;
+        this.requestId = count + 1;
     }
 
     public String getTenantName() {
@@ -46,12 +53,8 @@ public class MaintenanceRequest {
         this.issueType = issueType;
     }
 
-    public int getSeverity() {
+    public Severity getSeverity() {
         return severity;
-    }
-
-    public void setSeverity(int severity) {
-        this.severity = severity;
     }
 
     public Status getStatus() {
