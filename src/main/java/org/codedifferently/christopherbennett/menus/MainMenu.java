@@ -22,6 +22,8 @@ public class MainMenu {
 
         //Initialize Menus
         RequestMenu requestMenu = new RequestMenu();
+        TechMenu techMenu = new TechMenu();
+        ReportMenu reportMenu = new ReportMenu();
 
         //Main Loop
         while(inMainMenu) {
@@ -40,8 +42,10 @@ public class MainMenu {
                     requests.addAll(newRequests);
                     break;
                 case 2:
+                    techMenu.promptTechMenu(technicians);
                     break;
                 case 3:
+                    reportMenu.promptReportMenu();
                     break;
                 case 4:
                     System.out.println("Have a nice day!");

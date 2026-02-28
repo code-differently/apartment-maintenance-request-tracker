@@ -16,4 +16,20 @@ public class Technician {
         this.professionLevel = professionLevel;
         this.activity = activity;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public EProfessionLevel getProfessionLevel() {
+        return professionLevel;
+    }
+
+    public EActivity getActivity() {
+        return activity;
+    }
 }
