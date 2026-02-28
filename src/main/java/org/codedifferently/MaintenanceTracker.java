@@ -11,8 +11,11 @@ public class MaintenanceTracker {
         do {
             // Displays the main menu options to the user.
             System.out.println("\n=== Maintenance Management Menu ===");
-            System.out.println("Type \"Enter\" to make a new request");
-            System.out.println("Type \"Done\" to exit out");
+            System.out.println("Type \"Enter\" to make a new request.");
+            System.out.println("Type \"Assign\" to assign a technician.");
+            System.out.println("Type \"Update\" to get a status update on all requests.");
+            System.out.println("Type \"Report\" to print a daily report.");
+            System.out.println("Type \"Done\" to exit out.");
             System.out.print("Selection: ");
 
             // Validates numeric input before processing.
@@ -26,6 +29,12 @@ public class MaintenanceTracker {
                         office.assignTechnician(request);
                     }
                     break;
+                case "Assign":
+                    System.out.print("Enter an apt number: ");
+                    int aptNum = sc.nextInt();
+                    sc.nextLine();
+                    MaintenanceRequest toAssign = office.searchRequest(aptNum, sc);
+                    office.assignTechnician(toAssign);
                 case "Done":
                     break;
                 default:

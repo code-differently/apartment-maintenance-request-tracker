@@ -1,5 +1,6 @@
 package org.codedifferently;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MaintenanceRequest {

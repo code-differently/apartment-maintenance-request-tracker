@@ -1,9 +1,10 @@
 package org.codedifferently;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MaintenanceOffice {
-    private ArrayList<MaintenanceRequest> requests;
+    private static ArrayList<MaintenanceRequest> requests;
 
     public MaintenanceOffice() {
         requests = new ArrayList<>();
@@ -28,6 +29,35 @@ public class MaintenanceOffice {
                 newStatus == Status.DONE) {
 
             request.setStatus(newStatus);
+        }
+    }
+
+    public MaintenanceRequest searchRequest(int aptNum, Scanner sc) {
+        ArrayList<MaintenanceRequest> requestsFound = new ArrayList<>();
+        for (MaintenanceRequest request : requests) {
+            if (request.getApartmentNumber() == aptNum) {
+                requestsFound.add(request);
+            }
+        }
+        // Returns null if the customer is not found.
+        if (requestsFound.isEmpty()) {
+            return null;
+            // Returns the customer if there are no duplicate phone numbers.
+        } else if (requestsFound.size() == 1) {
+            return requestsFound.getFirst();
+            // Prompts the user to select by customer id since more than one customer used the same phone number.
+        } else {
+            System.out.println("\nMultiple requests found: " + requestsFound + "\n");
+            while(true) {
+                System.out.print("Enter tenant name: ");
+                String name = sc.nextLine();
+                for (MaintenanceRequest request : requests) {
+                    if (request.getTenantName().equalsIgnoreCase(name)) {
+                        return request;
+                    }
+                }
+                System.out.println("Invalid tenant name. Try again.\n");
+            }
         }
     }
 
