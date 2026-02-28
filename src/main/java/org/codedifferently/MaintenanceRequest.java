@@ -8,13 +8,13 @@ public class MaintenanceRequest {
 
     private String tenantName;
     private int apartmentNumber;
-    private String issueType;
+    private IssueType issueType;
     private Severity severity;
     private Status status;
     private String assignedTechnician;
     private int requestId;
 
-    public MaintenanceRequest(String tenantName, int apartmentNumber, String issueType, int severity) {
+    public MaintenanceRequest(String tenantName, int apartmentNumber, IssueType issueType, int severity) {
         this.tenantName = tenantName;
         this.apartmentNumber = apartmentNumber;
         this.issueType = issueType;
@@ -45,13 +45,10 @@ public class MaintenanceRequest {
         this.apartmentNumber = apartmentNumber;
     }
 
-    public String getIssueType() {
+    public IssueType getIssueType() {
         return issueType;
     }
 
-    public void setIssueType(String issueType) {
-        this.issueType = issueType;
-    }
 
     public Severity getSeverity() {
         return severity;
@@ -69,10 +66,6 @@ public class MaintenanceRequest {
         return requestId;
     }
 
-    public void setRequestId(int requestId) {
-        this.requestId = requestId;
-    }
-
     public static int getCount() {
         return count;
     }
@@ -88,8 +81,7 @@ public class MaintenanceRequest {
         int apt = sc.nextInt();
         sc.nextLine();
 
-        System.out.print("Enter issue type: ");
-        String type = sc.nextLine();
+        IssueType type = validateIssueType(sc);
 
         System.out.print("Rate it's severity on a scale from 1-5");
         int severity = validateSeverity(sc);
@@ -99,7 +91,7 @@ public class MaintenanceRequest {
         System.out.print("Maintenance request created.\n");
         ticket.toString();
 
-        if (severity >= 4 && type.equalsIgnoreCase("Electrical")) {
+        if (severity >= 4 && type == IssueType.ELECTRICAL) {
             System.out.println("WARNING! THIS REQUEST REQUIRES URGENT ATTENTION");
         }
 
@@ -149,6 +141,28 @@ public class MaintenanceRequest {
                 return severity;
             } else {
                 System.out.println("\nInvalid severity level. Please provide a number on a 1-5 scale.");
+            }
+        }
+    }
+
+    public static IssueType validateIssueType(Scanner sc) {
+        // Repeats continuously until valid input is provided.
+        while (true) {
+            // Prompts the user to enter their name.
+            System.out.print("Enter issue type: ");
+            String issueType = sc.nextLine();
+
+            if (issueType.equalsIgnoreCase("Electrical")) {
+                return IssueType.ELECTRICAL;
+            } else if (issueType.equalsIgnoreCase("HVAC")) {
+                return IssueType.HVAC;
+            } else if (issueType.equalsIgnoreCase("PLUMBING")) {
+                return IssueType.PLUMBING;
+            } else if (issueType.equalsIgnoreCase("APPLIANCE")) {
+                return IssueType.APPLIANCE;
+            } else {
+                System.out.println("\nInvalid issue. We only handle Electrical," +
+                        " HVAC, Plumbing, and Appliance related inquiries");
             }
         }
     }

@@ -6,9 +6,18 @@ import java.util.Scanner;
 public class MaintenanceOffice {
     private static ArrayList<MaintenanceRequest> requests;
     private static int closures = 0;
+
     private int lowSeverity = 0;
     private int medSeverity = 0;
     private int highSeverity = 0;
+
+    private int electrical = 0;
+    private int hvac = 0;
+    private int plumbing = 0;
+    private int appliance = 0;
+
+    int mostCommonCount = 0;
+    IssueType mostCommonType;
 
     public MaintenanceOffice() {
         requests = new ArrayList<>();
@@ -31,6 +40,32 @@ public class MaintenanceOffice {
             medSeverity++;
         } else {
             highSeverity++;
+        }
+
+        if (request.getIssueType() == IssueType.ELECTRICAL) {
+            electrical++;
+            if (electrical > mostCommonCount) {
+                mostCommonCount = electrical;
+                mostCommonType = IssueType.ELECTRICAL;
+            }
+        } else if (request.getIssueType() == IssueType.HVAC) {
+            hvac++;
+            if (hvac > mostCommonCount) {
+                mostCommonCount = hvac;
+                mostCommonType = IssueType.HVAC;
+            }
+        } else if (request.getIssueType() == IssueType.PLUMBING) {
+            plumbing++;
+            if (plumbing > mostCommonCount) {
+                mostCommonCount = plumbing;
+                mostCommonType = IssueType.PLUMBING;
+            }
+        } else {
+            appliance++;
+            if (appliance > mostCommonCount) {
+                mostCommonCount = appliance;
+                mostCommonType = IssueType.APPLIANCE;
+            }
         }
     }
 
@@ -80,6 +115,8 @@ public class MaintenanceOffice {
         System.out.println("\nNumber of Low Severity Cases: " + lowSeverity);
         System.out.println("Number of Medium Severity Cases: " + medSeverity);
         System.out.println("Number of High Severity Cases: " + highSeverity);
+
+        System.out.println("Most common issue: ");
     }
 
     public void closeRequest(MaintenanceRequest request) {
