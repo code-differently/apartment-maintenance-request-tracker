@@ -7,14 +7,15 @@ public class MaintenanceRequest {
     private int apartmentNumber;
     private String issueType;
     private int severity;
-    private String status;
+    private Status status;
+    private String assignedTechnician;
 
     public MaintenanceRequest(String tenantName, int apartmentNumber, String issueType, int severity) {
         this.tenantName = tenantName;
         this.apartmentNumber = apartmentNumber;
         this.issueType = issueType;
         this.severity = severity;
-        this.status = "NEW";
+        this.status = Status.NEW;
     }
 
     public String getTenantName() {
@@ -49,15 +50,15 @@ public class MaintenanceRequest {
         this.severity = severity;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
-    public MaintenanceRequest createRequest(Scanner sc) {
+    public static MaintenanceRequest createRequest(Scanner sc) {
         String name = validateName(sc);
 
         System.out.print("Enter an apartment number: ");
@@ -78,6 +79,7 @@ public class MaintenanceRequest {
         if (severity >= 4 && type.equalsIgnoreCase("Electrical")) {
             System.out.println("WARNING! THIS REQUEST REQUIRES URGENT ATTENTION");
         }
+
         return ticket;
     }
 
@@ -125,5 +127,13 @@ public class MaintenanceRequest {
                 System.out.println("\nInvalid severity level. Please provide a number on a 1-5 scale.");
             }
         }
+    }
+
+    public String getAssignedTechnician() {
+        return assignedTechnician;
+    }
+
+    public void setAssignedTechnician(String assignedTechnician) {
+        this.assignedTechnician = assignedTechnician;
     }
 }

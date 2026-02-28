@@ -1,8 +1,11 @@
 package org.codedifferently;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MaintenanceTracker {
+    private static MaintenanceOffice office = new MaintenanceOffice();
+
     public static void displayMenu(Scanner sc) {
         String input;
         do {
@@ -17,6 +20,11 @@ public class MaintenanceTracker {
 
             switch (input) {
                 case "Enter":
+                    MaintenanceRequest request = MaintenanceRequest.createRequest(sc);
+                    office.addRequest(request);
+                    if (request.getSeverity() == 5) {
+                        office.assignTechnician(request);
+                    }
                     break;
                 case "Done":
                     break;
@@ -25,5 +33,6 @@ public class MaintenanceTracker {
             }
             // Stopping condition. Program will exit when the user inputs 0.
         } while (!(input.equals("Done")));
+        sc.close();
     }
 }
