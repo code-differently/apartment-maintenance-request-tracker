@@ -58,7 +58,7 @@ public class Main {
             System.out.print("Severity (1-5): ");
             int severity = Integer.parseInt(scanner.nextLine());
 
-            // create new request (matches YOUR constructor)
+            // create new request
             MaintenanceRequest newRequest =
                     new MaintenanceRequest(name, apt, issue, severity, "NEW");
 
@@ -67,9 +67,6 @@ public class Main {
             // confirmation
             System.out.println("Request Confirmed");
 
-            // =============================
-            // RULES
-            // =============================
 
             if (issue.equalsIgnoreCase("Electrical") && severity >= 4) {
                 System.out.println(" High-risk electrical issue!!!");
