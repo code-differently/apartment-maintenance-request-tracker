@@ -27,7 +27,7 @@ public class MaintenanceTracker {
                 case "enter":
                     MaintenanceRequest request = MaintenanceRequest.createRequest(sc);
                     office.addRequest(request);
-                    if (request.getSeverity() == Severity.HIGH) {
+                    if (request.getIssueType() == IssueType.ELECTRICAL && request.getSeverity() == Severity.HIGH) {
                         office.assignTechnician(request);
                     }
                     break;

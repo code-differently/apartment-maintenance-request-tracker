@@ -91,7 +91,7 @@ public class MaintenanceRequest {
         System.out.println("Issue Type: " + ticket.getIssueType());
         System.out.println("Severity: " + ticket.getSeverity());
 
-        if (severity >= 4 && type == IssueType.ELECTRICAL) {
+        if (severity >= 5 && type == IssueType.ELECTRICAL) {
             System.out.println("WARNING! THIS REQUEST REQUIRES URGENT ATTENTION");
         }
 

@@ -2,25 +2,28 @@ package org.codedifferently;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.EnumMap;
 
 public class MaintenanceOffice {
     private static ArrayList<MaintenanceRequest> requests;
+    EnumMap<Severity, Integer> severityCounts;
+    EnumMap<IssueType, Integer> issueCounts;
     private static int closures = 0;
-
-    private int lowSeverity = 0;
-    private int medSeverity = 0;
-    private int highSeverity = 0;
-
-    private int electrical = 0;
-    private int hvac = 0;
-    private int plumbing = 0;
-    private int appliance = 0;
-
-    int mostCommonCount = 0;
-    IssueType mostCommonType;
 
     public MaintenanceOffice() {
         requests = new ArrayList<>();
+
+        severityCounts = new EnumMap<>(Severity.class);
+        issueCounts = new EnumMap<>(IssueType.class);
+
+        // Initialize all enum values to 0
+        for (Severity s : Severity.values()) {
+            severityCounts.put(s, 0);
+        }
+
+        for (IssueType type : IssueType.values()) {
+            issueCounts.put(type, 0);
+        }
     }
 
     public void assignTechnician(MaintenanceRequest request) {
@@ -40,39 +43,14 @@ public class MaintenanceOffice {
 
     public void addRequest(MaintenanceRequest request) {
         requests.add(request);
-        if (request.getSeverity() == Severity.LOW) {
-            lowSeverity++;
-        } else if (request.getSeverity() == Severity.MEDIUM) {
-            medSeverity++;
-        } else {
-            highSeverity++;
-        }
 
-        if (request.getIssueType() == IssueType.ELECTRICAL) {
-            electrical++;
-            if (electrical > mostCommonCount) {
-                mostCommonCount = electrical;
-                mostCommonType = IssueType.ELECTRICAL;
-            }
-        } else if (request.getIssueType() == IssueType.HVAC) {
-            hvac++;
-            if (hvac > mostCommonCount) {
-                mostCommonCount = hvac;
-                mostCommonType = IssueType.HVAC;
-            }
-        } else if (request.getIssueType() == IssueType.PLUMBING) {
-            plumbing++;
-            if (plumbing > mostCommonCount) {
-                mostCommonCount = plumbing;
-                mostCommonType = IssueType.PLUMBING;
-            }
-        } else {
-            appliance++;
-            if (appliance > mostCommonCount) {
-                mostCommonCount = appliance;
-                mostCommonType = IssueType.APPLIANCE;
-            }
-        }
+        // Update severity count
+        Severity severity = request.getSeverity();
+        severityCounts.put(severity, severityCounts.get(severity) + 1);
+
+        // Update issue type count
+        IssueType type = request.getIssueType();
+        issueCounts.put(type, issueCounts.get(type) + 1);
     }
 
     public void getProgressUpdate() {
@@ -117,17 +95,34 @@ public class MaintenanceOffice {
     public void printDailyReport() {
         System.out.println("=== DAILY REPORT ===");
         System.out.println("Total Requests: " + MaintenanceRequest.getCount());
-        System.out.println("Number of Open Requests Currently Open: " + requests.size());
+        System.out.println("Number of Open Requests: " + requests.size());
         System.out.println("Number of Closed Requests: " + closures);
 
-        System.out.println("\nNumber of Low Severity Cases: " + lowSeverity);
-        System.out.println("Number of Medium Severity Cases: " + medSeverity);
-        System.out.println("Number of High Severity Cases: " + highSeverity);
-        System.out.println("\nMost Common Issue Type: " + mostCommonType);
+        System.out.println("\nSeverity Breakdown:");
+        for (Severity s : severityCounts.keySet()) {
+            System.out.println(s + " CASES: " + severityCounts.get(s));
+        }
 
-        if (highSeverity > 3) {
+        System.out.println("\nMost Common Issue Type: " + getMostCommonIssueType());
+
+        if (severityCounts.get(Severity.HIGH) > 3) {
             System.out.println("WARNING: SYSTEM OVERLOADED.");
         }
+    }
+
+    private IssueType getMostCommonIssueType() {
+        IssueType mostCommon = null;
+        int max = 0;
+
+        for (IssueType type : issueCounts.keySet()) {
+            int count = issueCounts.get(type);
+
+            if (count > max) {
+                max = count;
+                mostCommon = type;
+            }
+        }
+        return mostCommon;
     }
 
     public void closeRequest(MaintenanceRequest request) {
