@@ -1,0 +1,70 @@
+
+@startuml
+title Apartment Maintenance Request Tracker - Class Diagram
+
+'========================
+' MaintenanceRequest
+'========================
+class MaintenanceRequest {
+  -tenantName: String
+  -apartmentNumber: String
+  -issueType: String
+  -severity: int
+  -status: String
+  -assignedTech: String
+
+  +MaintenanceRequest()
+  +MaintenanceRequest(tenantName: String, apartmentNumber: String, issueType: String, severity: int)
+
+  +getTenantName(): String
+  +setTenantName(tenantName: String): void
+
+  +getApartmentNumber(): String
+  +setApartmentNumber(apartmentNumber: String): void
+
+  +getIssueType(): String
+  +setIssueType(issueType: String): void
+
+  +getSeverity(): int
+  +setSeverity(severity: int): void
+
+  +getStatus(): String
+  +setStatus(status: String): boolean
+
+  +getAssignedTech(): String
+  +setAssignedTech(assignedTech: String): void
+
+  +toString(): String
+}
+
+'========================
+' MaintenanceOffice
+'========================
+class MaintenanceOffice {
+  -requests: List<MaintenanceRequest>
+
+  +MaintenanceOffice()
+
+  +logRequest(request: MaintenanceRequest): void
+  +assignTech(request: MaintenanceRequest): void
+  +updateStatus(request: MaintenanceRequest, newStatus: String): boolean
+  +closeRequest(request: MaintenanceRequest): boolean
+
+  +printDailyReport(): void
+  -getMostCommonIssueType(): String
+}
+
+'========================
+' Main
+'========================
+class Main {
+  +main(args: String[]): void
+}
+
+'========================
+' Relationships
+'========================
+MaintenanceOffice "1" o-- "*" MaintenanceRequest : stores
+Main --> MaintenanceOffice : uses
+
+@enduml
