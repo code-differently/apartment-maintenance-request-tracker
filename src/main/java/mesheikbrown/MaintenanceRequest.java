@@ -9,8 +9,10 @@ public class MaintenanceRequest {
     private String status;
     private String assignedTech;
 
-    //Default Constructor
-    MaintenanceRequest(){
+    // Default Constructor
+    public MaintenanceRequest() {
+        this.status = "NEW";
+        this.assignedTech = "UNASSIGNED";
     }
 
     //Parameterized Constructor
@@ -19,8 +21,8 @@ public class MaintenanceRequest {
         this.apartmentNumber = apartmentNumber;
         this.issueType = issueType;
         this.severity = severity;
-        this.status = status;
-        this.assignedTech = assignedTech;
+        this.status = "NEW";
+        this.assignedTech = "UNASSIGNED";
     }
 
     //Getters and Setters
@@ -49,14 +51,24 @@ public class MaintenanceRequest {
         return severity;
     }
     public void setSeverity(int severity) {
-        this.severity = severity;
+        if (severity >= 1 && severity <= 5) {
+            this.severity = severity;
+        } else {
+            System.out.println("Severity must be between 1 and 5.");
+        }
     }
-
     public String getStatus() {
         return status;
     }
-    public void setStatus(String status) {
-        this.status = status;
+    public boolean setStatus(String status) {
+        if (status.equals("NEW") ||
+                status.equals("IN_PROGRESS") ||
+                status.equals("DONE")) {
+            this.status = status;
+            return true;
+    }
+        System.out.println("Invalid status.");
+        return false;
     }
 
     public String getAssignedTech() {
@@ -66,8 +78,17 @@ public class MaintenanceRequest {
         this.assignedTech = assignedTech;
     }
 
+
+
+
+
     @Override
     public String toString() {
-        return super.toString();
+        return "Tenant: " + tenantName +
+                " | Apt: " + apartmentNumber +
+                " | Issue: " + issueType +
+                " | Severity: " + severity +
+                " | Status: " + status +
+                " | Tech: " + assignedTech;
     }
 }//ends Class
