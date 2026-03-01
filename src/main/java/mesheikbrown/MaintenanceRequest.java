@@ -5,30 +5,31 @@ public class MaintenanceRequest {
     private String tenantName;
     private String apartmentNumber;
     private String issueType;
-    private int severity;
-    private String status;
+    private int severity; // 1–5
+    private String status; // default NEW
     private String assignedTech;
 
-    // Default Constructor
+    // Default constructor (required)
     public MaintenanceRequest() {
         this.status = "NEW";
         this.assignedTech = "UNASSIGNED";
     }
 
-    //Parameterized Constructor
-    public MaintenanceRequest(String tenantName,String apartmentNumber,String issueType,int severity,String status,String assignedTech){
+    // Parameterized constructor (required)
+    public MaintenanceRequest(String tenantName, String apartmentNumber, String issueType, int severity) {
         this.tenantName = tenantName;
         this.apartmentNumber = apartmentNumber;
         this.issueType = issueType;
-        this.severity = severity;
+        setSeverity(severity); // validation
         this.status = "NEW";
         this.assignedTech = "UNASSIGNED";
     }
 
-    //Getters and Setters
+    // Getters & Setters
     public String getTenantName() {
         return tenantName;
     }
+
     public void setTenantName(String tenantName) {
         this.tenantName = tenantName;
     }
@@ -36,6 +37,7 @@ public class MaintenanceRequest {
     public String getApartmentNumber() {
         return apartmentNumber;
     }
+
     public void setApartmentNumber(String apartmentNumber) {
         this.apartmentNumber = apartmentNumber;
     }
@@ -43,6 +45,7 @@ public class MaintenanceRequest {
     public String getIssueType() {
         return issueType;
     }
+
     public void setIssueType(String issueType) {
         this.issueType = issueType;
     }
@@ -50,45 +53,46 @@ public class MaintenanceRequest {
     public int getSeverity() {
         return severity;
     }
+
     public void setSeverity(int severity) {
         if (severity >= 1 && severity <= 5) {
             this.severity = severity;
         } else {
-            System.out.println("Severity must be between 1 and 5.");
+            // keep it simple: clamp invalid values to 1
+            this.severity = 1;
         }
     }
+
     public String getStatus() {
         return status;
     }
+
+    // Status updates must be restricted (Level 3 rule)
     public boolean setStatus(String status) {
-        if (status.equals("NEW") ||
-                status.equals("IN_PROGRESS") ||
-                status.equals("DONE")) {
-            this.status = status;
+        String s = status.toUpperCase();
+
+        if (s.equals("NEW") || s.equals("IN_PROGRESS") || s.equals("DONE")) {
+            this.status = s;
             return true;
-    }
-        System.out.println("Invalid status.");
+        }
         return false;
     }
 
     public String getAssignedTech() {
         return assignedTech;
     }
+
     public void setAssignedTech(String assignedTech) {
         this.assignedTech = assignedTech;
     }
 
-
-
-
-
+    // toString() (required)
     @Override
     public String toString() {
-        return "Tenant: " + tenantName +
-                " | Apt: " + apartmentNumber +
-                " | Issue: " + issueType +
+        return issueType + " | Apt " + apartmentNumber +
+                " | Tenant: " + tenantName +
                 " | Severity: " + severity +
                 " | Status: " + status +
                 " | Tech: " + assignedTech;
     }
-}//ends Class
+}
