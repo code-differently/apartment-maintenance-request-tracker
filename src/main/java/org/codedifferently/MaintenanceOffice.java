@@ -26,8 +26,10 @@ public class MaintenanceOffice {
     public void assignTechnician(MaintenanceRequest request) {
         if (request.getSeverity() == Severity.HIGH) {
             request.setAssignedTechnician("Senior Technician");
+            System.out.println("Senior Technician assigned to request #" + request.getRequestId());
         } else {
             request.setAssignedTechnician("Junior Technician");
+            System.out.println("Junior Technician to request #" + request.getRequestId());
         }
         request.setStatus(Status.IN_PROGRESS);
     }
@@ -70,6 +72,7 @@ public class MaintenanceOffice {
     }
 
     public void getProgressUpdate() {
+        System.out.println("\nReceiving progress report. Type \"View\" to see updates.");
         for (MaintenanceRequest request : requests) {
             if (request.getStatus() == Status.IN_PROGRESS) {
                 request.setStatus(Status.DONE);
@@ -96,6 +99,7 @@ public class MaintenanceOffice {
             while(true) {
                 System.out.print("Enter request id: ");
                 int requestId = sc.nextInt();
+                sc.nextLine();
                 for (MaintenanceRequest request : requests) {
                     if (request.getRequestId() == requestId) {
                         return request;
@@ -115,8 +119,7 @@ public class MaintenanceOffice {
         System.out.println("\nNumber of Low Severity Cases: " + lowSeverity);
         System.out.println("Number of Medium Severity Cases: " + medSeverity);
         System.out.println("Number of High Severity Cases: " + highSeverity);
-
-        System.out.println("Most common issue: ");
+        System.out.println("\nMost Common Issue Type: " + mostCommonType);
     }
 
     public void closeRequest(MaintenanceRequest request) {

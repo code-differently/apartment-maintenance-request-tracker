@@ -27,6 +27,7 @@ public class MaintenanceRequest {
         }
         this.status = Status.NEW;
         this.requestId = count + 1;
+        this.assignedTechnician = "None";
     }
 
     public String getTenantName() {
@@ -102,10 +103,12 @@ public class MaintenanceRequest {
     @Override
     public String toString() {
         return "[Name: " + this.tenantName +
+                ", Request Id: " + this.requestId +
                 ", Apartment Number: " + this.apartmentNumber +
                 ", Issue Type: " + this.issueType +
                 ", Severity: " + this.severity +
-                ", Status: " + this.getStatus() + "]\n";
+                ", Status: " + this.getStatus() +
+                ", Technician: " + this.getAssignedTechnician() + "]\n";
     }
 
     // Validates that the user's name input contains only permitted characters.

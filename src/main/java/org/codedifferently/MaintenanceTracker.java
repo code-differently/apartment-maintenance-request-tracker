@@ -15,6 +15,7 @@ public class MaintenanceTracker {
             System.out.println("Type \"View\" to view all current requests.");
             System.out.println("Type \"Assign\" to assign a technician.");
             System.out.println("Type \"Status\" to get a status update on all requests.");
+            System.out.println("Type \"Close\" to close a request.");
             System.out.println("Type \"Report\" to print a daily report.");
             System.out.println("Type \"Done\" to exit out.");
             System.out.print("Selection: ");
@@ -38,6 +39,7 @@ public class MaintenanceTracker {
                     sc.nextLine();
                     MaintenanceRequest toAssign = office.searchRequest(aptNum, sc);
                     office.assignTechnician(toAssign);
+                    break;
                 case "Status":
                     office.getProgressUpdate();
                     break;
@@ -48,6 +50,7 @@ public class MaintenanceTracker {
                     office.closeRequest(toClose);
                     break;
                 case "Report":
+                    office.printDailyReport();
                     break;
                 case "Done":
                     break;
@@ -56,6 +59,7 @@ public class MaintenanceTracker {
             }
             // Stopping condition. Program will exit when the user inputs 0.
         } while (!(input.equals("Done")));
+        System.out.println("\nGoodbye.");
         sc.close();
     }
 }
