@@ -11,9 +11,9 @@ public class Main {
         MaintenanceOffice office = new MaintenanceOffice();
 
         // LEVEL 1 — Create 3 requests and print with loop
-        MaintenanceRequest r1 = new MaintenanceRequest("Jordan", "2B", "Plumbing", 3);
-        MaintenanceRequest r2 = new MaintenanceRequest("Coreye", "4A", "Electrical", 5);
-        MaintenanceRequest r3 = new MaintenanceRequest("Mesheik", "1C", "Heating", 4);
+        MaintenanceRequest r1 = new MaintenanceRequest("Jordan", "3B", "Plumbing", 3);
+        MaintenanceRequest r2 = new MaintenanceRequest("Coreye", "5A", "Electrical", 5);
+        MaintenanceRequest r3 = new MaintenanceRequest("Mesheik", "2C", "Heating", 4);
 
         // Instead of storing requests directly in Main,
         // we send them to the MaintenanceOffice.
