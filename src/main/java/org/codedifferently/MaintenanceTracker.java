@@ -68,7 +68,7 @@ public class MaintenanceTracker {
                     System.out.println("\nPlease select a valid option.");
             }
             // Stopping condition. Program will exit when the user inputs 0.
-        } while (!(input.equals("Done")));
+        } while (!(input.equalsIgnoreCase("Done")));
         System.out.println("\nGoodbye.");
         sc.close();
     }

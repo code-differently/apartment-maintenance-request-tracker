@@ -124,6 +124,10 @@ public class MaintenanceOffice {
         System.out.println("Number of Medium Severity Cases: " + medSeverity);
         System.out.println("Number of High Severity Cases: " + highSeverity);
         System.out.println("\nMost Common Issue Type: " + mostCommonType);
+
+        if (highSeverity > 3) {
+            System.out.println("WARNING: SYSTEM OVERLOADED.");
+        }
     }
 
     public void closeRequest(MaintenanceRequest request) {
