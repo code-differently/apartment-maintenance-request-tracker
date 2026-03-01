@@ -130,6 +130,7 @@ public class MaintenanceOffice {
     }
 
     public void viewRequests() {
+        System.out.println("\nActive Requests");
         System.out.println(requests);
     }
 

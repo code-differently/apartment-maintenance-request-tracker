@@ -20,7 +20,7 @@ public class MaintenanceRequest {
         this.issueType = issueType;
         if (severity == 1 || severity == 2) {
             this.severity = Severity.LOW;
-        } else if (severity == 3) {
+        } else if (severity == 3 || severity == 4) {
             this.severity = Severity.MEDIUM;
         } else {
             this.severity = Severity.HIGH;
@@ -76,20 +76,19 @@ public class MaintenanceRequest {
 
     public static MaintenanceRequest createRequest(Scanner sc) {
         String name = validateName(sc);
-
-        System.out.print("Enter an apartment number: ");
-        int apt = sc.nextInt();
-        sc.nextLine();
-
+        int apt = validateAptNum(sc);
         IssueType type = validateIssueType(sc);
-
-        System.out.print("Rate it's severity on a scale from 1-5");
         int severity = validateSeverity(sc);
 
         MaintenanceRequest ticket = new MaintenanceRequest(name, apt, type, severity);
 
-        System.out.print("Maintenance request created.\n");
-        ticket.toString();
+        System.out.print("\nMaintenance request created.\n");
+
+        System.out.println("Maintenance Request");
+        System.out.println("Name: " + ticket.getTenantName());
+        System.out.println("Apartment Number: " + ticket.getApartmentNumber());
+        System.out.println("Issue Type: " + ticket.getIssueType());
+        System.out.println("Severity: " + ticket.getSeverity());
 
         if (severity >= 4 && type == IssueType.ELECTRICAL) {
             System.out.println("WARNING! THIS REQUEST REQUIRES URGENT ATTENTION");
@@ -102,12 +101,11 @@ public class MaintenanceRequest {
 
     @Override
     public String toString() {
-        System.out.println("Maintenance Ticket");
-        System.out.println("Name: " + this.tenantName);
-        System.out.println("Apartment Number: " + this.apartmentNumber);
-        System.out.println("Issue Type: " + this.issueType);
-        System.out.println("Severity: " + this.severity);
-        return null;
+        return "[Name: " + this.tenantName +
+                ", Apartment Number: " + this.apartmentNumber +
+                ", Issue Type: " + this.issueType +
+                ", Severity: " + this.severity +
+                ", Status: " + this.getStatus() + "]\n";
     }
 
     // Validates that the user's name input contains only permitted characters.
@@ -130,17 +128,45 @@ public class MaintenanceRequest {
         }
     }
 
+    public static int validateAptNum(Scanner sc) {
+        // Repeats continuously until valid input is provided.
+        while (true) {
+            // Prompts the user to enter a severity level.
+            System.out.print("Enter an apartment number: ");
+            // Captures the full line of user input.
+            String input = sc.nextLine();
+
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                // Displays an error message if the input cannot be parsed as a number.
+                System.out.println("\nInvalid input. Please enter a number.\n");
+            }
+        }
+    }
+
     public static int validateSeverity(Scanner sc) {
         // Repeats continuously until valid input is provided.
         while (true) {
-            // Prompts the user to enter their name.
-            System.out.print("\nRate it's severity on a scale from 1-5: ");
-            int severity = sc.nextInt();
+            // Prompts the user to enter a severity level.
+            System.out.print("Rate its severity on a scale from 1-5: ");
+            // Captures the full line of user input.
+            String input = sc.nextLine();
 
-            if (severity >= 1 && severity <= 5) {
-                return severity;
-            } else {
-                System.out.println("\nInvalid severity level. Please provide a number on a 1-5 scale.");
+            try {
+                // Attempts to convert the input into an integer.
+                int severity = Integer.parseInt(input);
+                // Checks whether the integer falls within the valid range.
+                if (severity >= 1 && severity <= 5) {
+                    // Returns the validated severity level.
+                    return severity;
+                } else {
+                    // Displays an error message if the number is outside the valid range.
+                    System.out.println("\nInvalid input. Please enter a number from 1-5.\n");
+                }
+            } catch (NumberFormatException e) {
+                // Displays an error message if the input cannot be parsed as a number.
+                System.out.println("\nInvalid input. Please enter a number from 1-5.\n");
             }
         }
     }
@@ -161,8 +187,11 @@ public class MaintenanceRequest {
             } else if (issueType.equalsIgnoreCase("APPLIANCE")) {
                 return IssueType.APPLIANCE;
             } else {
-                System.out.println("\nInvalid issue. We only handle Electrical," +
-                        " HVAC, Plumbing, and Appliance related inquiries");
+                System.out.println("""
+                        
+                        Invalid issue type. We only handle Electrical,\
+                         HVAC, Plumbing, or Appliance related inquiries.
+                        """);
             }
         }
     }

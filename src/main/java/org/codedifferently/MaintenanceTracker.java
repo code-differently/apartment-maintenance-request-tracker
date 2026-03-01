@@ -12,6 +12,7 @@ public class MaintenanceTracker {
             // Displays the main menu options to the user.
             System.out.println("\n=== Maintenance Management Menu ===");
             System.out.println("Type \"Enter\" to make a new request.");
+            System.out.println("Type \"View\" to view all current requests.");
             System.out.println("Type \"Assign\" to assign a technician.");
             System.out.println("Type \"Status\" to get a status update on all requests.");
             System.out.println("Type \"Report\" to print a daily report.");
@@ -24,7 +25,7 @@ public class MaintenanceTracker {
                 case "Enter":
                     MaintenanceRequest request = MaintenanceRequest.createRequest(sc);
                     office.addRequest(request);
-                    if (request.getSeverity() == 5) {
+                    if (request.getSeverity() == Severity.HIGH) {
                         office.assignTechnician(request);
                     }
                     break;
