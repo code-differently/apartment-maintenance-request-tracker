@@ -1,5 +1,6 @@
 package org.codedifferently;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class MaintenanceTracker {
@@ -21,38 +22,47 @@ public class MaintenanceTracker {
             System.out.print("Selection: ");
 
             // Validates numeric input before processing.
-            input = sc.nextLine();
+            input = sc.nextLine().toLowerCase();
             switch (input) {
-                case "Enter":
+                case "enter":
                     MaintenanceRequest request = MaintenanceRequest.createRequest(sc);
                     office.addRequest(request);
                     if (request.getSeverity() == Severity.HIGH) {
                         office.assignTechnician(request);
                     }
                     break;
-                case "View":
+                case "view":
                     office.viewRequests();
                     break;
-                case "Assign":
+                case "assign":
                     System.out.print("Enter an apt number: ");
                     aptNum = sc.nextInt();
                     sc.nextLine();
                     MaintenanceRequest toAssign = office.searchRequest(aptNum, sc);
-                    office.assignTechnician(toAssign);
+                    if (toAssign != null) {
+                        office.assignTechnician(toAssign);
+                    } else {
+                        System.out.println("Apartment Number not found. Please try again.");
+                    }
                     break;
-                case "Status":
+                case "status":
                     office.getProgressUpdate();
                     break;
-                case "Close":
+                case "close":
                     System.out.print("Enter an apt number: ");
                     aptNum = sc.nextInt();
+                    sc.nextLine();
                     MaintenanceRequest toClose = office.searchRequest(aptNum, sc);
-                    office.closeRequest(toClose);
+                    if (toClose != null) {
+                        office.closeRequest(toClose);
+                    } else {
+                        System.out.println("Apartment Number not found. Please try again");
+                    }
                     break;
-                case "Report":
+                case "report":
                     office.printDailyReport();
                     break;
-                case "Done":
+                case "done":
                     break;
                 default:
                     System.out.println("\nPlease select a valid option.");

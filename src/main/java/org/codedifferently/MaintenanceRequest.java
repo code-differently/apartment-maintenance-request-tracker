@@ -85,7 +85,7 @@ public class MaintenanceRequest {
 
         System.out.print("\nMaintenance request created.\n");
 
-        System.out.println("Maintenance Request");
+        System.out.println("\nMaintenance Request");
         System.out.println("Name: " + ticket.getTenantName());
         System.out.println("Apartment Number: " + ticket.getApartmentNumber());
         System.out.println("Issue Type: " + ticket.getIssueType());

@@ -24,14 +24,18 @@ public class MaintenanceOffice {
     }
 
     public void assignTechnician(MaintenanceRequest request) {
-        if (request.getSeverity() == Severity.HIGH) {
-            request.setAssignedTechnician("Senior Technician");
-            System.out.println("Senior Technician assigned to request #" + request.getRequestId());
+        if (request.getAssignedTechnician().equals("None")) {
+            if (request.getSeverity() == Severity.HIGH) {
+                request.setAssignedTechnician("Senior Technician");
+                System.out.println("\nSenior Technician assigned to request #" + request.getRequestId());
+            } else {
+                request.setAssignedTechnician("Junior Technician");
+                System.out.println("\nJunior Technician to request #" + request.getRequestId());
+            }
+            request.setStatus(Status.IN_PROGRESS);
         } else {
-            request.setAssignedTechnician("Junior Technician");
-            System.out.println("Junior Technician to request #" + request.getRequestId());
+            System.out.println("\nA technician has already been assigned to this request.");
         }
-        request.setStatus(Status.IN_PROGRESS);
     }
 
     public void addRequest(MaintenanceRequest request) {
@@ -125,10 +129,10 @@ public class MaintenanceOffice {
     public void closeRequest(MaintenanceRequest request) {
         if (request.getStatus() == Status.DONE) {
             requests.remove(request);
-            System.out.println("Request closed successfully.");
+            System.out.println("\nRequest closed successfully.");
             closures++;
         } else {
-            System.out.println("Cannot close request unless it is DONE.");
+            System.out.println("\nCannot close request unless it is DONE.");
         }
     }
 
