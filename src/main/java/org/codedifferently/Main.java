@@ -1,17 +1,50 @@
 package org.codedifferently;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+import java.util.Scanner;
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+public class Main {
+
+    public static void main(String[] args) {
+
+        MaintenanceOffice office = new MaintenanceOffice();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+
+            System.out.println("Enter tenant name (or type 'done' to exit): ");
+            String tenantName = scanner.nextLine();
+
+            if (tenantName.equalsIgnoreCase("done")) {
+                break;
+            }
+
+            System.out.println("Enter apartment number: ");
+            int apartmentNumber = Integer.parseInt(scanner.nextLine());
+
+            System.out.println("Enter issue type: ");
+            String issueType = scanner.nextLine();
+
+            System.out.println("Enter severity (1-5): ");
+            int severity = Integer.parseInt(scanner.nextLine());
+
+            MaintenanceRequest request =
+                    new MaintenanceRequest(tenantName, apartmentNumber, issueType, severity);
+
+            office.addRequest(request);
+
+            if (issueType.equalsIgnoreCase("Electrical") && severity >= 4) {
+                System.out.println("⚠ Electrical high severity — handle urgently!");
+            }
+
+            if (severity == 5) {
+                office.assignTechnician(request);
+                System.out.println("Dispatching immediately.");
+            }
+
+            System.out.println("Request logged successfully.");
         }
+
+        office.generateDailyReport();
+        scanner.close();
     }
 }
