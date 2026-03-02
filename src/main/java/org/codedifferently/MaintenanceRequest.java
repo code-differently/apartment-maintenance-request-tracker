@@ -9,12 +9,12 @@ public class MaintenanceRequest {
     private String status;
     private String assignedTech;
 
-    // Default constructor
+    // Default
     public MaintenanceRequest() {
         this.status = "NEW";
     }
 
-    // Parameterized constructor
+    // Parameterized
     public MaintenanceRequest(String tenantName,
                               int apartmentNumber,
                               String issueType,
