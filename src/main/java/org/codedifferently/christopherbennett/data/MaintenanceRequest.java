@@ -1,13 +1,14 @@
 package org.codedifferently.christopherbennett.data;
 
 import org.codedifferently.christopherbennett.enums.EIssueType;
+import org.codedifferently.christopherbennett.enums.EStatusUpdate;
 
 public class MaintenanceRequest {
     private String tenantName;
     private String apartmentNumber;
     private EIssueType issueType;
     private int severity;
-    private String status = "NEW";
+    private EStatusUpdate status = EStatusUpdate.NEW;
 
 
     public MaintenanceRequest(String tenantName, String apartmentNumber, EIssueType issueType, int severity) {
@@ -15,7 +16,6 @@ public class MaintenanceRequest {
         this.apartmentNumber = apartmentNumber;
         this.issueType = issueType;
         this.severity = severity;
-        this.status = status;
     }
 
     public String getTenantName() {
@@ -54,5 +54,11 @@ public class MaintenanceRequest {
         this.severity = severity;
     }
 
+    public EStatusUpdate getStatus() {
+        return status;
+    }
 
+    public void setStatus(EStatusUpdate status) {
+        this.status = status;
+    }
 }

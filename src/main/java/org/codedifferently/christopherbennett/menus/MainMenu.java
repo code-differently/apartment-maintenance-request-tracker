@@ -1,5 +1,6 @@
 package org.codedifferently.christopherbennett.menus;
 
+import org.codedifferently.christopherbennett.MaintenanceOffice;
 import org.codedifferently.christopherbennett.data.MaintenanceRequest;
 import org.codedifferently.christopherbennett.data.Technician;
 import org.codedifferently.christopherbennett.enums.EActivity;
@@ -24,6 +25,7 @@ public class MainMenu {
         RequestMenu requestMenu = new RequestMenu();
         TechMenu techMenu = new TechMenu();
         ReportMenu reportMenu = new ReportMenu();
+        MaintenanceOffice maintenanceOffice = new MaintenanceOffice();
 
         //Main Loop
         while(inMainMenu) {
@@ -40,12 +42,14 @@ public class MainMenu {
                     //Add all new requests once finished
                     List<MaintenanceRequest> newRequests = requestMenu.promptRequestMenu();
                     requests.addAll(newRequests);
+                    maintenanceOffice.assignTechs(requests, technicians);
                     break;
                 case 2:
-                    techMenu.promptTechMenu(technicians);
+                    techMenu.promptTechMenu(technicians, requests);
+                    maintenanceOffice.techCompleteTasks(technicians);
                     break;
                 case 3:
-                    reportMenu.promptReportMenu();
+                    reportMenu.promptReportMenu(requests);
                     break;
                 case 4:
                     System.out.println("Have a nice day!");

@@ -8,6 +8,7 @@ public class Technician {
     private int age;
     private EProfessionLevel professionLevel;
     private EActivity activity;
+    private MaintenanceRequest request;
 
 
     public Technician(String name, int age, EProfessionLevel professionLevel, EActivity activity) {
@@ -31,5 +32,17 @@ public class Technician {
 
     public EActivity getActivity() {
         return activity;
+    }
+
+    public void setActivity(EActivity activity) {
+        this.activity = activity;
+    }
+
+    public void setRequest(MaintenanceRequest request) {
+        this.request = request;
+    }
+
+    public MaintenanceRequest getRequest() {
+        return request;
     }
 }
