@@ -139,7 +139,7 @@ Submit:
 * Screenshot or copy of sample console output
 * Clean, formatted code
 
----
+----
 
 # Creative Extension (Optional)
 
