@@ -2,9 +2,11 @@ package org.codedifferently;
 
 public class Technician {
     private String type;
+    private  String name;
 
-    public Technician(String type){
+    public Technician(String type, String name){
         this.type = type;
+        this.name = name;
     }
 
     public String getType() {
@@ -13,5 +15,13 @@ public class Technician {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

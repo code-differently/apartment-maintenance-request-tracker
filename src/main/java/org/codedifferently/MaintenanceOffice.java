@@ -71,7 +71,7 @@ public class MaintenanceOffice {
         int highPriorityCount = high; // high severity = severity 4-5
 
         // Print report
-        System.out.println("----- DAILY MAINTENANCE REPORT -----");
+        System.out.println("\n***** DAILY MAINTENANCE REPORT *****");
         System.out.println("Total Requests: " + requests.size());
         System.out.println("Open Requests: " + open);
         System.out.println("Closed Requests: " + closed);
@@ -86,8 +86,6 @@ public class MaintenanceOffice {
         if (highPriorityCount > 3) {
             System.out.println("OVERLOAD WARNING: Too many high priority requests!");
         }
-
-        System.out.println("------------------------------------");
     }
 
 // helper methods for the daily report method

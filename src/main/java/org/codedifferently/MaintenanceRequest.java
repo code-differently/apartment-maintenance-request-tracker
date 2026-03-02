@@ -8,12 +8,12 @@ public class MaintenanceRequest {
     private String status;
     private Technician assignedTechnician;
 
-    public MaintenanceRequest(String tenantName, int apartmentNumber, String issueType, int severity, String status) {
+    public MaintenanceRequest(String tenantName, int apartmentNumber, String issueType, int severity) {
         this.tenantName = tenantName;
         this.apartmentNumber = apartmentNumber;
         this.issueType = issueType;
         this.severity = severity;
-        this.status = status;
+        this.status = "NEW";
     }
 
     public String getTenantName() {
@@ -70,11 +70,12 @@ public class MaintenanceRequest {
 
     @Override
     public String toString() {
+        String techName = (assignedTechnician != null) ? assignedTechnician.getName() : "None";
         return "Tenant: " + tenantName +
                 " | Apt: " + apartmentNumber +
                 " | Issue: " + issueType +
                 " | Severity: " + severity +
                 " | Status: " + status +
-                " | Assigned Technician: " + assignedTechnician;
+                " | Assigned Technician: " + techName;
     }
 }
