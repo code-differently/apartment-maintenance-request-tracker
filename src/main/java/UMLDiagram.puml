@@ -1,0 +1,53 @@
+@startuml
+
+class Main {
+    + main(args: String[]): void
+}
+
+class MaintenanceRequest {
+    - tenantName: String
+    - apartmentNumber: int
+    - issueType: String
+    - severity: int
+    - status: String
+    - assignedTech: String
+
+    + MaintenanceRequest()
+    + MaintenanceRequest(tenantName: String, apartmentNumber: int, issueType: String, severity: int)
+
+    + getTenantName(): String
+    + setTenantName(name: String): void
+
+    + getApartmentNumber(): int
+    + setApartmentNumber(number: int): void
+
+    + getIssueType(): String
+    + setIssueType(issue: String): void
+
+    + getSeverity(): int
+    + setSeverity(severity: int): void
+
+    + getStatus(): String
+    + setStatus(status: String): void
+
+    + getAssignedTech(): String
+    + setAssignedTech(name: String): void
+
+    + toString(): String
+}
+
+class MaintenanceOffice {
+    - requests: List<MaintenanceRequest>
+
+    + MaintenanceOffice()
+    + addRequest(request: MaintenanceRequest): void
+    + assignTechnician(request: MaintenanceRequest): void
+    + updateStatus(request: MaintenanceRequest, status: String): void
+    + closeRequest(request: MaintenanceRequest): void
+    + generateDailyReport(): void
+}
+
+Main --> MaintenanceOffice
+MaintenanceOffice --> MaintenanceRequest
+
+@enduml
