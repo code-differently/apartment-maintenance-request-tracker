@@ -1,6 +1,7 @@
 package org.codedifferently;
 
 public class MaintenanceRequest {
+    //fields of a maintenance request
     private String tenantName;
     private int apartmentNumber;
     private String issueType;
@@ -8,6 +9,7 @@ public class MaintenanceRequest {
     private String status;
     private Technician assignedTechnician;
 
+    //constructor
     public MaintenanceRequest(String tenantName, int apartmentNumber, String issueType, int severity) {
         this.tenantName = tenantName;
         this.apartmentNumber = apartmentNumber;
@@ -16,6 +18,7 @@ public class MaintenanceRequest {
         this.status = "NEW";
     }
 
+    //getters and setters to access private instance variables
     public String getTenantName() {
         return tenantName;
     }
@@ -45,6 +48,7 @@ public class MaintenanceRequest {
     }
 
     public void setSeverity(int severity) {
+        //checks to see if the severity is valid or not
         if (severity >= 1 && severity <= 5) {
             this.severity = severity;
         } else {
@@ -68,6 +72,7 @@ public class MaintenanceRequest {
         this.assignedTechnician = assignedTechnician;
     }
 
+    //displays the info of the request
     @Override
     public String toString() {
         String techName = (assignedTechnician != null) ? assignedTechnician.getName() : "None";

@@ -31,7 +31,7 @@ public class Main {
 
         System.out.println("*** Initial Requests ***");
         for (MaintenanceRequest request : office.getRequests()) {
-            System.out.println(request);
+            System.out.println(request.toString());
             if (request.getSeverity() >= 4) {
                 System.out.println("HIGH PRIORITY");
             }

@@ -1,17 +1,18 @@
 package org.codedifferently;
-
-import javax.sql.StatementEvent;
 import java.util.ArrayList;
 
 public class MaintenanceOffice {
+    //private fields for the maintenance office
     private ArrayList<Technician> technicians;
     private ArrayList<MaintenanceRequest> requests;
 
+    //constructor
     public MaintenanceOffice(ArrayList<Technician> technicians, ArrayList<MaintenanceRequest> requests) {
         this.technicians = technicians;
         this.requests = requests;
     }
 
+    //getters and setters to access private instance variables
     public ArrayList<Technician> getTechnicians() {
         return technicians;
     }
@@ -20,14 +21,17 @@ public class MaintenanceOffice {
         return requests;
     }
 
+    //adds a request to the request lists
     public void addRequest(MaintenanceRequest request){
         requests.add(request);
     }
 
+    //adds a tech to the list of technicians
     public void addTechnician(Technician technician){
         technicians.add(technician);
     }
 
+    //assigns a technician to the request that's being passed in
     public void assignTechnician(MaintenanceRequest request){
         //electrical high severity warning
         if (request.getIssueType().equals("ELECTRICAL")
@@ -51,14 +55,17 @@ public class MaintenanceOffice {
         System.out.println("No technician available for this issue.");
     }
 
+    //updates the request status of the request passed in
     public void updateRequestStatus(MaintenanceRequest request, String newStatus) {
         request.setStatus(newStatus);
     }
 
+    //closes the request
     public void closeRequest(MaintenanceRequest request){
         System.out.println("Request closed successfully.");
     }
 
+    //displays detailed info about the requests that come in
     public void generateDailyReport() {
         int open = countOpenRequests();
         int closed = countClosedRequests();
@@ -71,7 +78,7 @@ public class MaintenanceOffice {
         int highPriorityCount = high; // high severity = severity 4-5
 
         // Print report
-        System.out.println("\n***** DAILY MAINTENANCE REPORT *****");
+        System.out.println("***** DAILY MAINTENANCE REPORT *****");
         System.out.println("Total Requests: " + requests.size());
         System.out.println("Open Requests: " + open);
         System.out.println("Closed Requests: " + closed);
@@ -89,7 +96,7 @@ public class MaintenanceOffice {
     }
 
 // helper methods for the daily report method
-
+    //gets the total amount of the open requests
     private int countOpenRequests() {
         int count = 0;
         for (MaintenanceRequest request : requests) {
@@ -100,6 +107,7 @@ public class MaintenanceOffice {
         return count;
     }
 
+    //gets the total amount of closed requests
     private int countClosedRequests() {
         int count = 0;
         for (MaintenanceRequest r : requests) {
@@ -124,6 +132,7 @@ public class MaintenanceOffice {
         return new int[]{low, medium, high};
     }
 
+    //gets the type that appears the most in the list of the requests
     private String getMostCommonIssueType() {
         String mostCommonType = "";
         int highestCount = 0;
