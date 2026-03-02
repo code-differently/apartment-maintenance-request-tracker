@@ -6,6 +6,7 @@ public class MaintenanceRequest {
     private String issueType;
     private int severity;
     private String status;
+    private Technician assignedTechnician;
 
     public MaintenanceRequest(String tenantName, int apartmentNumber, String issueType, int severity, String status) {
         this.tenantName = tenantName;
@@ -59,12 +60,21 @@ public class MaintenanceRequest {
         this.status = status;
     }
 
+    public Technician getAssignedTechnician() {
+        return assignedTechnician;
+    }
+
+    public void setAssignedTechnician(Technician assignedTechnician) {
+        this.assignedTechnician = assignedTechnician;
+    }
+
     @Override
     public String toString() {
         return "Tenant: " + tenantName +
                 " | Apt: " + apartmentNumber +
                 " | Issue: " + issueType +
                 " | Severity: " + severity +
-                " | Status: " + status;
+                " | Status: " + status +
+                " | Assigned Technician: " + assignedTechnician;
     }
 }
