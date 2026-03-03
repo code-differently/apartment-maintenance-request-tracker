@@ -6,6 +6,8 @@ public class MaintenanceOffice {
 
     private ArrayList<MaintenanceRequest> requests = new ArrayList<>();
 
+    MaintenanceRequest mr = new MaintenanceRequest();
+
     public MaintenanceOffice() {
         requests = new ArrayList<>();
     }
@@ -34,7 +36,6 @@ public class MaintenanceOffice {
     }
 
     public void dailyReport() {
-
         int open = 0;
         int closed = 0;
         int low = 0;
@@ -45,16 +46,14 @@ public class MaintenanceOffice {
         ArrayList<Integer> issueCounts = new ArrayList<>();
 
         for (MaintenanceRequest request : requests) {
-
-            if (request.getStatus().equals("DONE"))
-                closed++;
+            if (request.getStatus().equals("DONE")){
+                closed++;}
             else
                 open++;
-
-            if (request.getSeverity() <= 2)
-                low++;
-            else if (request.getSeverity() == 3)
-                medium++;
+            if (request.getSeverity() <= 2){
+                low++;}
+            else if (request.getSeverity() == 3){
+                medium++;}
             else
                 high++;
 
@@ -79,7 +78,7 @@ public class MaintenanceOffice {
             }
         }
 
-        System.out.println("\n--- DAILY REPORT ---");
+        System.out.println("==== DAILY REPORT ====");
         System.out.println("Total Requests: " + requests.size());
         System.out.println("Open: " + open);
         System.out.println("Closed: " + closed);
@@ -93,9 +92,11 @@ public class MaintenanceOffice {
         }
     }
 
-    public ArrayList<MaintenanceRequest> getRequests() {
-
-        return requests;
+    public void getRequests() {
+        for (MaintenanceRequest r : requests) {
+            System.out.println("Tenant Name: "+r.getTenantName()+"\nApt # "+ r.getAptNumber()+"\nIssue Type: "+r.getIssueType()+"\nSeverity level: "+r.getSeverity());
+            System.out.println("===============================");
+        }
     }
 }
 

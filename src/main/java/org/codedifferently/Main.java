@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        Scanner input = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         MaintenanceOffice office = new MaintenanceOffice();
 
         MaintenanceRequest request1 =
@@ -22,30 +22,21 @@ public class Main {
         office.addRequest(request3);
 
         System.out.println("Initial Requests:");
-        for (int i = 0; i < office.getRequests().size(); i++) {
-            System.out.println(office.getRequests());
-            if (office.getRequests().get(i).getSeverity() >= 4) {
-                System.out.println("HIGH PRIORITY");
-            }
-            for (MaintenanceRequest request : office.getRequests()) {
-                System.out.println(request);
-                System.out.println(office.getRequests());
-            }
-        }
-
+            office.getRequests();
 
             while (true) {
                 System.out.println("\nEnter tenant name (or type 'done'):");
-                String name = input.nextLine();
+                String name = sc.nextLine();
                 if (name.equalsIgnoreCase("done"))
                     break;
                 System.out.println("Apartment number:");
-                int aptNum = input.nextInt();
+                int aptNum = sc.nextInt();
                 System.out.println("Issue type:");
-                String issue = input.nextLine();
+                String issue2 = sc.nextLine();
+                String issue = sc.nextLine();
                 System.out.println("Severity (1-5):");
-                int severity = input.nextInt();
-                input.nextLine();
+                int severity = sc.nextInt();
+                sc.nextLine();
 
                 MaintenanceRequest newRequest = new MaintenanceRequest(name, aptNum, issue, severity);
                 office.addRequest(newRequest);
@@ -61,17 +52,13 @@ public class Main {
                     office.assignTech(newRequest);
                 }
             }
-
-            for (MaintenanceRequest request : office.getRequests()) {
-                if (request.getStatus().equals("NEW")) {
-                    office.assignTech(request);
-                }
-            }
-
+//            for (MaintenanceRequest request : office.getRequests()) {
+//                if (request.getStatus().equals("NEW")) {
+//                    office.assignTech(request);
+//                }
+//            }
             office.getRequests().getFirst().setStatus("DONE");
-
             office.dailyReport();
-
-            input.close();
+            sc.close();
         }
     }
