@@ -56,6 +56,7 @@ In `Main`:
 * Create at least **3 requests**
 * Use a loop to print them
 * Print `"HIGH PRIORITY"` if severity ≥ 4
+* 
 
 ---
 
@@ -139,7 +140,7 @@ Submit:
 * Screenshot or copy of sample console output
 * Clean, formatted code
 
----
+----
 
 # Creative Extension (Optional)
 
