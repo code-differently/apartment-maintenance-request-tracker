@@ -80,7 +80,7 @@ public class Main {
                     if (issue.equalsIgnoreCase("Electrical") && sev >= 4)
                         System.out.println("⚠ High-risk electrical issue!");
                     if (sev == 5) {
-                        System.out.println("🚨 Dispatch maintenance immediately!");
+                        System.out.println(" Dispatch maintenance immediately!");
                         r.setStatus("DISPATCHED");
                     }
                     if (sev >= 4) System.out.println("HIGH PRIORITY\n");
