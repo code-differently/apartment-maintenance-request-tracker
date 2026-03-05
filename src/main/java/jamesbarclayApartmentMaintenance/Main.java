@@ -20,66 +20,93 @@ If severity is 5 → dispatch immediately*/
 
 
 public class Main {
+
     public static void main(String[] args) {
-        // create the 3 required request
-        MaintenanceRequest r1 = new MaintenanceRequest("James", 808, "Water", 5, "NEW");
-        MaintenanceRequest r2 = new MaintenanceRequest("John", 715, "Electrical", 3, "NEW");
-        MaintenanceRequest r3 = new MaintenanceRequest("Carol", 368, "Sewage", 2, "NEW");
 
-        //since it is list for request we will store it in an Array
-        MaintenanceRequest[] requests = {r1,r2,r3};
+        Scanner sc = new Scanner(System.in);
+        MaintenanceOffice office = new MaintenanceOffice();
 
-        for (MaintenanceRequest req :requests){
-            System.out.println(req);
-            if (req.getSeverity() >= 4){
-                System.out.println("HIGH PRIORITY");
-            }
-            System.out.println();
-        }
-        Scanner scanner = new Scanner(System.in);
-        ArrayList<MaintenanceRequest> requestList = new ArrayList<>();
+        // --- Initial Requests ---
+       // office.addRequest(new MaintenanceRequest("James", 808, "Water", 5, "NEW"));
+        office.addRequest(new MaintenanceRequest("John", 715, "Electrical", 3, "NEW"));
+        office.addRequest(new MaintenanceRequest("Carol", 368, "Sewage", 2, "NEW"));
 
-        while (true) {
+        System.out.println("\n--- INITIAL REQUESTS ---");
+        office.displayAllRequests();
 
-            System.out.print("Enter tenant name (or type done): ");
-            String name = scanner.nextLine();
-
-            // stop condition
-            if (name.equalsIgnoreCase("done")) {
-                break;
-            }
-
-            System.out.print("Apartment number: ");
-            int apt = Integer.parseInt(scanner.nextLine());
-
-            System.out.print("Issue type: ");
-            String issue = scanner.nextLine();
-
-            System.out.print("Severity (1-5): ");
-            int severity = Integer.parseInt(scanner.nextLine());
-
-            // create new request
-            MaintenanceRequest newRequest =
-                    new MaintenanceRequest(name, apt, issue, severity, "NEW");
-
-            requestList.add(newRequest);
-
-            // confirmation
-            System.out.println("Request Confirmed");
-
-
-            if (issue.equalsIgnoreCase("Electrical") && severity >= 4) {
-                System.out.println(" High-risk electrical issue!!!");
-            }
-
-            if (severity == 5) {
-                System.out.println(" Call Maintenance !!!");
-            }
-
-            System.out.println();
+        for (int i = 1; i <= office.getRequestCount(); i++) {
+            office.assignTechnician(i);
         }
 
-        scanner.close();
+        // --- Menu Loop ---
+        boolean running = true;
+        while (running) {
+            System.out.println("\n--- APARTMENT MAINTENANCE MENU ---");
+            System.out.println("1. Add new request");
+            System.out.println("2. View all requests");
+            System.out.println("3. Assign technician");
+            System.out.println("4. Update request status");
+            System.out.println("5. Close request");
+            System.out.println("6. Daily report");
+            System.out.println("7. Exit");
+            System.out.print("Choose an option: ");
 
+            int choice;
+            try {
+                choice = Integer.parseInt(sc.nextLine());
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter 1-7.");
+                continue;
+            }
+
+            switch (choice) {
+                case 1: // Add request
+                    System.out.print("Tenant name: ");
+                    String name = sc.nextLine();
+                    System.out.print("Apartment #: ");
+                    int apt = Integer.parseInt(sc.nextLine());
+                    System.out.print("Issue type: ");
+                    String issue = sc.nextLine();
+                    System.out.print("Severity (1-5): ");
+                    int sev = Integer.parseInt(sc.nextLine());
+                    if (sev < 1 || sev > 5) { System.out.println("Invalid severity."); break; }
+
+                    MaintenanceRequest r = new MaintenanceRequest(name, apt, issue, sev, "NEW");
+                    office.addRequest(r);
+                    System.out.println("Request Confirmed: " + r);
+
+                    office.assignTechnician(office.getRequestCount());
+
+                    if (issue.equalsIgnoreCase("Electrical") && sev >= 4)
+                        System.out.println("⚠ High-risk electrical issue!");
+                    if (sev == 5) {
+                        System.out.println("🚨 Dispatch maintenance immediately!");
+                        r.setStatus("DISPATCHED");
+                    }
+                    if (sev >= 4) System.out.println("HIGH PRIORITY\n");
+                    break;
+
+                case 2: office.displayAllRequests(); break;
+                case 3:
+                    System.out.print("Enter request number to assign technician: ");
+                    office.assignTechnician(Integer.parseInt(sc.nextLine()));
+                    break;
+                case 4:
+                    System.out.print("Enter request number to update status: ");
+                    int updateNum = Integer.parseInt(sc.nextLine());
+                    System.out.print("Enter new status (NEW, IN_PROGRESS, DONE): ");
+                    office.updateStatus(updateNum, sc.nextLine());
+                    break;
+                case 5:
+                    System.out.print("Enter request number to close: ");
+                    office.closeRequest(Integer.parseInt(sc.nextLine()));
+                    break;
+                case 6: office.report(); break;
+                case 7: running = false; System.out.println("Exiting. Goodbye!"); break;
+                default: System.out.println("Invalid option. Choose 1-7.");
+            }
+        }
+
+        sc.close();
     }
 }
