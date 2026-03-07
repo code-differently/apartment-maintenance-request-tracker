@@ -32,7 +32,6 @@ public class Main {
                 System.out.println("Apartment number:");
                 int aptNum = sc.nextInt();
                 System.out.println("Issue type:");
-                String issue2 = sc.nextLine();
                 String issue = sc.nextLine();
                 System.out.println("Severity (1-5):");
                 int severity = sc.nextInt();
@@ -52,12 +51,7 @@ public class Main {
                     office.assignTech(newRequest);
                 }
             }
-//            for (MaintenanceRequest request : office.getRequests()) {
-//                if (request.getStatus().equals("NEW")) {
-//                    office.assignTech(request);
-//                }
-//            }
-            office.getRequests().getFirst().setStatus("DONE");
+            office.getRequests();
             office.dailyReport();
             sc.close();
         }
